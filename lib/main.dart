@@ -28,7 +28,9 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   String _weather = 'Loading...';
-  Position? _position;
+  double _latitude = 0.0;
+  double _longitude = 0.0;
+  // Position? _position;
   String _city = '';
   String _mapUrl = '';
   double _temp = 0.0;
@@ -55,7 +57,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
       setState(() {
         _weather = weather;
-        _position = position;
+        _latitude = position.latitude;
+        _longitude = position.longitude;
         _city = city;
         _temp = temp;
         _humidity = humidity;
@@ -124,8 +127,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Latitude:${_position!.latitude}'),
-                    Text('Longitude:${_position!.longitude}'),
+                    Text('Latitude:${_latitude}'),
+                    Text('Longitude:${_longitude}'),
                   ],
                 ),
                 SizedBox(height: 24,),
@@ -165,6 +168,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 ),
                 SizedBox(height: 20,),
                 Container(
+                  height: 200,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(75.0), // Set the border radius as needed
                     child: Image.network(
